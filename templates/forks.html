@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Fox Forks - Kashima Research API{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-12">
+        <h1 class="text-4xl font-bold text-white mb-4">Fox Forks</h1>
+        <p class="text-white/60 text-lg">Complete technical specifications for all Fox Racing Shox forks with Kashima Coat.</p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% set forks = [
+            {'id': '32_sc', 'name': '32 SC', 'desc': 'Cross-Country / Marathon Racing', 'travel': '100mm', 'stanchion': '32mm', 'weight': '1,276g'},
+            {'id': '34_sc', 'name': '34 SC', 'desc': 'Cross-Country / Trail', 'travel': '100-120mm', 'stanchion': '34mm', 'weight': '1,422g'},
+            {'id': '36', 'name': '36', 'desc': 'All-Mountain / Enduro', 'travel': '140-160mm', 'stanchion': '36mm', 'weight': '1,920g'},
+            {'id': '38', 'name': '38', 'desc': 'Enduro / Downhill', 'travel': '160-180mm', 'stanchion': '38mm', 'weight': '2,194g'},
+            {'id': '40', 'name': '40', 'desc': 'Downhill / World Cup', 'travel': '190-203mm', 'stanchion': '40mm', 'weight': '2,745g'},
+            {'id': 'ax', 'name': 'AX (Kabolt)', 'desc': 'Lightweight axle system', 'travel': 'various', 'stanchion': 'N/A', 'weight': '-12g'},
+            {'id': '49', 'name': '49', 'desc': 'World Cup DH (Discontinued)', 'travel': '203mm', 'stanchion': '40mm', 'weight': '~2,980g'},
+            {'id': 'live_valve_34', 'name': 'Live Valve (34)', 'desc': 'Auto-terrain sensing', 'travel': '130-140mm', 'stanchion': '34mm', 'weight': '+144g'},
+            {'id': 'live_valve_36', 'name': 'Live Valve (36)', 'desc': 'Auto-terrain sensing', 'travel': '150-160mm', 'stanchion': '36mm', 'weight': '+144g'}
+        ] %}
+        
+        {% for fork in forks %}
+        <a href="{{ url_for('fork_detail', model=fork.id) }}" class="group p-6 bg-white/5 border border-white/10 rounded-2xl card-hover">
+            <div class="flex items-start justify-between mb-4">
+                <div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-kashima-gold transition">{{ fork.name }}</h3>
+                    <p class="text-white/60 text-sm">{{ fork.desc }}</p>
+                </div>
+                <div class="w-10 h-10 kashima-gradient rounded-lg flex items-center justify-center">
+                    <span class="text-kashima-dark font-bold text-sm">F</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                    <span class="text-white/40 block">Travel</span>
+                    <span class="text-white font-medium">{{ fork.travel }}</span>
+                </div>
+                <div>
+                    <span class="text-white/40 block">Stanchion</span>
+                    <span class="text-white font-medium">{{ fork.stanchion }}</span>
+                </div>
+                <div class="col-span-2">
+                    <span class="text-white/40 block">Weight (approx)</span>
+                    <span class="text-white font-medium">{{ fork.weight }}</span>
+                </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-white/10 flex items-center text-kashima-gold text-sm font-medium">
+                <span>View specifications</span>
+                <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

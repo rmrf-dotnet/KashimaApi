@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - Kashima Research API</title>
+    <link rel="icon" type="image/png" href="/static/images/kc.png">
+    <link rel="shortcut icon" type="image/png" href="/static/images/kc.png">
+    <link rel="apple-touch-icon" href="/static/images/kc.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kashima: {
+                            gold: '#D4AF37',
+                            goldLight: '#E8C547',
+                            black: '#1a1a1a',
+                            dark: '#0d0d0d'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .kashima-gradient { background: linear-gradient(135deg, #D4AF37 0%, #E8C547 50%, #D4AF37 100%); }
+        .api-hero {
+    background-image: url(/static/images/slideshow/NY5Sn47.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+    </style>
+</head>
+<body class="api-hero bg-kashima-dark text-white min-h-screen">
+    <nav class="bg-kashima-black/95 backdrop-blur border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/api_docs" class="flex items-center gap-3">
+                    <div class="w-10 h-10 kashima-gradient rounded-full flex items-center justify-center">
+                        <span class="text-kashima-dark font-bold">K</span>
+                    </div>
+                    <span class="font-bold text-xl">Kashima Research API</span>
+                </a>
+                <a href="/search" class="text-white/60 hover:text-kashima-gold">Search Site</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <div class="mb-8">
+            <form action="/search" method="GET" class="flex gap-2">
+                <input type="text" name="q" placeholder="Search documentation..."
+                    class="flex-1 px-6 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:border-kashima-gold">
+                <button type="submit" class="px-6 py-3 kashima-gradient text-kashima-dark font-semibold rounded-xl">Search</button>
+            </form>
+        </div>
+        
+        <div class="text-center py-8">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-kashima-gold/10 rounded-full border border-kashima-gold/30 mb-6">
+                <div class="w-2 h-2 bg-kashima-gold rounded-full animate-pulse"></div>
+                <span class="text-kashima-gold">API Documentation</span>
+            </div>
+            
+            <h1 class="text-5xl font-bold mb-6">
+                <span class="text-white">Kashima Research</span>
+                <span class="kashima-gradient bg-clip-text text-transparent"> API</span>
+            </h1>
+            
+            <p class="text-xl text-white/60 max-w-2xl mx-auto mb-8">
+                The most comprehensive Fox Racing Shox parts database with technical specifications, measurements, and photos.
+            </p>
+            
+            {% if api_key %}
+            <div class="mb-6 p-4 bg-kashima-gold/10 border border-kashima-gold/30 rounded-xl inline-block">
+                <span class="text-white/60">Your API Key:</span>
+                <code class="text-kashima-gold ml-2">{{ api_key[:16] }}...</code>
+                <a href="/account" class="text-kashima-gold ml-2 hover:underline">View All</a>
+            </div>
+            {% endif %}
+            
+            <div class="flex items-center justify-center gap-4">
+                <a href="/api_docs/why_exists" class="px-8 py-4 kashima-gradient text-kashima-dark font-semibold rounded-xl hover:opacity-90 transition">
+                    Get Started
+                </a>
+                <a href="/register" class="px-8 py-4 bg-white/10 border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition">
+                    Get API Key
+                </a>
+            </div>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-6 mt-16">
+            <a href="/api_docs/why_exists" class="group p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-kashima-gold/50 transition">
+                <div class="w-12 h-12 kashima-gradient rounded-xl flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-kashima-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.167 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.833-3.772-2M12 16c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white group-hover:text-kashima-gold">Why This API Exists</h3>
+                <p class="text-white/60 mt-2">Learn the story behind Kashima Research and the problem it solves.</p>
+            </a>
+            
+            <a href="/api_docs/use_cases" class="group p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-kashima-gold/50 transition">
+                <div class="w-12 h-12 kashima-gradient rounded-xl flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-kashima-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M3 12V1m0 22v-6h1m-2.343-5.657l-.707-.707M1 12H0m5.657 2.343l.707.707M12 21v-1m-6.364-1.636l.707.707"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white group-hover:text-kashima-gold">Use Cases</h3>
+                <p class="text-white/60 mt-2">See what's possible with the Kashima Research API.</p>
+            </a>
+            
+            <a href="/api_docs/benefits" class="group p-8 bg-white/5 border border-white/10 rounded-2xl hover:border-kashima-gold/50 transition">
+                <div class="w-12 h-12 kashima-gradient rounded-xl flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-kashima-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white group-hover:text-kashima-gold">Benefits</h3>
+                <p class="text-white/60 mt-2">Discover the value and advantages of using our API.</p>
+            </a>
+        </div>
+        
+        <div class="mt-16 bg-white/5 border border-white/10 rounded-2xl p-8">
+            <h2 class="text-2xl font-bold text-white mb-6">Quick Navigation</h2>
+            <div class="grid md:grid-cols-4 gap-4">
+                <div>
+                    <h3 class="text-kashima-gold font-medium mb-3">Getting Started</h3>
+                    <ul class="space-y-2 text-white/60">
+                        <li><a href="/api_docs/getting_started" class="hover:text-white">Getting Started</a></li>
+                        <li><a href="/api_docs/authentication" class="hover:text-white">Authentication</a></li>
+                        <li><a href="/api_docs/endpoints" class="hover:text-white">Endpoints</a></li>
+                        <li><a href="/api_docs/response_format" class="hover:text-white">Response Format</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-kashima-gold font-medium mb-3">Guides</h3>
+                    <ul class="space-y-2 text-white/60">
+                        <li><a href="/api_docs/fork_guide" class="hover:text-white">Fork Selection</a></li>
+                        <li><a href="/api_docs/shock_guide" class="hover:text-white">Shock Selection</a></li>
+                        <li><a href="/api_docs/dropper_guide" class="hover:text-white">Dropper Selection</a></li>
+                        <li><a href="/api_docs/buying_guide" class="hover:text-white">Buying Guide</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-kashima-gold font-medium mb-3">Understanding</h3>
+                    <ul class="space-y-2 text-white/60">
+                        <li><a href="/api_docs/kashima_coat" class="hover:text-white">What is Kashima?</a></li>
+                        <li><a href="/api_docs/travel_explained" class="hover:text-white">Understanding Travel</a></li>
+                        <li><a href="/api_docs/terminology" class="hover:text-white">Bike Terms</a></li>
+                        <li><a href="/api_docs/glossary" class="hover:text-white">Glossary</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-kashima-gold font-medium mb-3">API Reference</h3>
+                    <ul class="space-y-2 text-white/60">
+                        <li><a href="/api_docs/error_handling" class="hover:text-white">Error Handling</a></li>
+                        <li><a href="/api_docs/rate_limits" class="hover:text-white">Rate Limits</a></li>
+                        <li><a href="/api_docs/pricing" class="hover:text-white">Pricing</a></li>
+                        <li><a href="/api_docs/support" class="hover:text-white">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

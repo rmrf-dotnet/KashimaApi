@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block title %}Search - Kashima Research API{% endblock %}
+
+{% block extra_head %}
+<style>
+.search-result-item {
+    transition: all 0.3s ease;
+}
+.search-result-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.filter-checkbox:checked + label {
+    border-color: #D4AF37;
+    background: rgba(212, 175, 55, 0.1);
+}
+.active-filter {
+    background: #D4AF37 !important;
+    color: #1a1a1a !important;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8">
+        <h1 class="text-4xl font-bold text-white mb-4">Search Parts</h1>
+        
+        <form id="searchForm" action="/search" method="GET" class="relative">
+            <div class="relative">
+                <input type="text" name="q" id="searchInput" value="{{ query }}" 
+                    placeholder="Search forks, shocks, droppers... (e.g., 36 fork, float x2, transfer)"
+                    class="w-full px-6 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 text-lg focus:outline-none focus:border-kashima-gold">
+                <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 px-6 py-2 kashima-gradient text-kashima-dark font-semibold rounded-lg">
+                    Search
+                </button>
+            </div>
+            
+            <div id="suggestions" class="absolute top-full left-0 right-0 mt-2 bg-white/10 border border-white/20 rounded-xl z-50 hidden">
+            </div>
+        </form>
+    </div>
+    
+    <div class="grid lg:grid-cols-4 gap-8">
+        <div class="lg:col-span-1">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 sticky top-4">
+                <h2 class="text-xl font-bold text-white mb-6">Filters</h2>
+                
+                <form action="/search" method="GET" id="filterForm">
+                    {% if query %}
+                    <input type="hidden" name="q" value="{{ query }}">
+                    {% endif %}
+                    
+                    <div class="mb-6">
+                        <label class="text-white/80 text-sm font-medium mb-2 block">Category</label>
+                        <select name="category" class="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white">
+                            <option value="all" {% if category == 'all' %}selected{% endif %}>All Categories</option>
+                            <option value="forks" {% if category == 'forks' %}selected{% endif %}>Forks</option>
+                            <option value="shocks" {% if category == 'shocks' %}selected{% endif %}>Rear Shocks</option>
+                            <option value="droppers" {% if category == 'droppers' %}selected{% endif %}>Dropper Posts</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="text-white/80 text-sm font-medium mb-2 block">Series</label>
+                        <select name="series" class="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white">
+                            <option value="all" {% if series == 'all' %}selected{% endif %}>All Series</option>
+                            <option value="Factory" {% if series == 'Factory' %}selected{% endif %}>Factory (Kashima)</option>
+                            <option value="Performance" {% if series == 'Performance' %}selected{% endif %}>Performance</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="text-white/80 text-sm font-medium mb-2 block">Wheel Size</label>
+                        <select name="wheel_size" class="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white">
+                            <option value="all" {% if wheel_size == 'all' %}selected{% endif %}>All Sizes</option>
+                            <option value="29" {% if wheel_size == '29"' %}selected{% endif %}>29"</option>
+                            <option value="27.5" {% if wheel_size == '27.5"' %}selected{% endif %}>27.5"</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="text-white/80 text-sm font-medium mb-2 block">Stanchion Diameter</label>
+                        <select name="stanchion" class="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white">
+                            <option value="all" {% if stanchion == 'all' %}selected{% endif %}>All</option>
+                            <option value="32mm" {% if stanchion == '32mm' %}selected{% endif %}>32mm</option>
+                            <option value="34mm" {% if stanchion == '34mm' %}selected{% endif %}>34mm</option>
+                            <option value="36mm" {% if stanchion == '36mm' %}selected{% endif %}>36mm</option>
+                            <option value="38mm" {% if stanchion == '38mm' %}selected{% endif %}>38mm</option>
+                            <option value="40mm" {% if stanchion == '40mm' %}selected{% endif %}>40mm</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="text-white/80 text-sm font-medium mb-2 block">Spring Type</label>
+                        <select name="spring_type" class="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white">
+                            <option value="all" {% if spring_type == 'all' %}selected{% endif %}>All Types</option>
+                            <option value="Air" {% if spring_type == 'Air' %}selected{% endif %}>Air</option>
+                            <option value="Coil" {% if spring_type == 'Coil' %}selected{% endif %}>Coil</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="text-white/80 text-sm font-medium mb-2 block">Travel (mm)</label>
+                        <div class="flex gap-2">
+                            <input type="number" name="travel_min" value="{{ travel_min }}" placeholder="Min"
+                                class="w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-white/40 text-sm">
+                            <input type="number" name="travel_max" value="{{ travel_max }}" placeholder="Max"
+                                class="w-full px-3 py-2 bg-white/5 border border-white/20 rounded-lg text-white placeholder-white/40 text-sm">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full py-3 kashima-gradient text-kashima-dark font-semibold rounded-xl">
+                        Apply Filters
+                    </button>
+                    
+                    <a href="/search" class="block text-center mt-3 text-white/60 text-sm hover:text-kashima-gold">
+                        Clear All Filters
+                    </a>
+                </form>
+            </div>
+        </div>
+        
+        <div class="lg:col-span-3">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-white/60">{{ results|length }} results found</span>
+                
+                <div class="flex items-center gap-2">
+                    <button onclick="window.location.href='/search'" class="px-3 py-1 {% if not query and category == 'all' %}kashima-gradient{% else %}bg-white/10{% endif %} text-sm rounded-lg {% if not query and category == 'all' %}text-kashima-dark{% else %}text-white/80{% endif %}">
+                        All
+                    </button>
+                    <button onclick="window.location.href='/search?category=forks'" class="px-3 py-1 {% if category == 'forks' %}kashima-gradient{% else %}bg-white/10{% endif %} text-sm rounded-lg {% if category == 'forks' %}text-kashima-dark{% else %}text-white/80{% endif %}">
+                        Forks
+                    </button>
+                    <button onclick="window.location.href='/search?category=shocks'" class="px-3 py-1 {% if category == 'shocks' %}kashima-gradient{% else %}bg-white/10{% endif %} text-sm rounded-lg {% if category == 'shocks' %}text-kashima-dark{% else %}text-white/80{% endif %}">
+                        Shocks
+                    </button>
+                    <button onclick="window.location.href='/search?category=droppers'" class="px-3 py-1 {% if category == 'droppers' %}kashima-gradient{% else %}bg-white/10{% endif %} text-sm rounded-lg {% if category == 'droppers' %}text-kashima-dark{% else %}text-white/80{% endif %}">
+                        Droppers
+                    </button>
+                </div>
+            </div>
+            
+            {% if results %}
+            <div class="grid md:grid-cols-2 gap-4">
+                {% for part in results %}
+                <a href="{{ part.url }}" class="search-result-item group p-6 bg-white/5 border border-white/10 rounded-2xl">
+                    <div class="flex items-start justify-between mb-3">
+                        <div>
+                            <span class="px-2 py-1 bg-kashima-gold/20 text-kashima-gold rounded text-xs font-medium">
+                                {{ part.category|title }}
+                            </span>
+                            {% if part.series %}
+                            <span class="px-2 py-1 ml-2 bg-white/10 text-white/80 rounded text-xs">
+                                {{ part.series }}
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-white group-hover:text-kashima-gold mb-2">
+                        {{ part.name }}
+                    </h3>
+                    
+                    {% if part.description %}
+                    <p class="text-white/60 text-sm mb-3 line-clamp-2">{{ part.description }}</p>
+                    {% endif %}
+                    
+                    <div class="flex flex-wrap gap-2 text-sm">
+                        {% if part.travel %}
+                        <span class="text-white/40">
+                            <span class="text-white/60">Travel:</span> {{ part.travel|join(', ') }}
+                        </span>
+                        {% endif %}
+                        {% if part.wheel_size %}
+                        <span class="text-white/40">
+                            <span class="text-white/60">Wheel:</span> {{ part.wheel_size|join(', ') }}
+                        </span>
+                        {% endif %}
+                        {% if part.stanchion_diameter %}
+                        <span class="text-white/40">
+                            <span class="text-white/60">Stanchion:</span> {{ part.stanchion_diameter }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="text-center py-20">
+                <div class="w-16 h-16 kashima-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-kashima-dark font-bold text-2xl">?</span>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">No Results</h3>
+                <p class="text-white/60">Try adjusting your search or filters</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+const searchInput = document.getElementById('searchInput');
+const suggestionsBox = document.getElementById('suggestions');
+
+let debounceTimer;
+
+searchInput.addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    const q = this.value;
+    
+    if (q.length < 2) {
+        suggestionsBox.classList.add('hidden');
+        return;
+    }
+    
+    debounceTimer = setTimeout(async () => {
+        try {
+            const response = await fetch(`/api/search/suggest?q=${encodeURIComponent(q)}`);
+            const data = await response.json();
+            
+            if (data.length > 0) {
+                let html = '';
+                data.forEach(item => {
+                    html += `
+                        <a href="${item.url}" class="block px-4 py-3 hover:bg-white/10 border-b border-white/10 last:border-0">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-white font-medium">${item.name}</span>
+                                    <span class="text-white/40 text-sm ml-2">${item.category}</span>
+                                </div>
+                                <span class="text-kashima-gold text-sm">${item.series}</span>
+                            </div>
+                        </a>
+                    `;
+                });
+                suggestionsBox.innerHTML = html;
+                suggestionsBox.classList.remove('hidden');
+            } else {
+                suggestionsBox.classList.add('hidden');
+            }
+        } catch(e) {
+            suggestionsBox.classList.add('hidden');
+        }
+    }, 300);
+});
+
+searchInput.addEventListener('blur', function() {
+    setTimeout(() => suggestionsBox.classList.add('hidden'), 200);
+});
+</script>
+{% endblock %}

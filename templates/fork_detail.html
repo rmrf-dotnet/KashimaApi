@@ -1,0 +1,428 @@
+{% extends "base.html" %}
+
+{% block title %}{{ model|upper }} Fork - Kashima Research API{% endblock %}
+
+{% block content %}
+{% set parts = {
+    '32_sc': {
+        'name': '32 SC (Step-Cast)',
+        'description': 'Cross-Country / Marathon Racing fork with lightweight Step-Cast design',
+        'series': 'Factory',
+        'stanchion_diameter': '32mm',
+        'travel': ['100mm'],
+        'wheel_size': ['29"'],
+        'axle': 'Kabolt SL 15x110mm (Boost)',
+        'offset_rake': '44mm',
+        'steerer': '1.5" Tapered',
+        'crown': '58mm',
+        'spring_type': 'FLOAT EVOL air spring',
+        'damper': 'GRIP SL',
+        'damper_controls': '3-Position Adjust (Open/Medium/Firm)',
+        'finish': 'Kashima Coat',
+        'rotor_size': '160mm Direct Post Mount, up to 180mm',
+        'max_tire': '2.4"',
+        'weight': '1,276g (Factory, 29", GRIP SL)',
+        'intended_use': 'Cross-Country / Marathon Racing',
+        'model_years': '2016-2026',
+        'colors': ['Shiny Black', 'Shiny Orange'],
+        'adjustments': {
+            'Low-speed compression': '3 positions (Open/Medium/Firm)',
+            'Low-speed rebound': '17 clicks',
+            'Air pressure': 'Adjustable via Schrader valve'
+        }
+    },
+    '34_sc': {
+        'name': '34 SC (Step-Cast)',
+        'description': 'Cross-Country / Trail fork with Step-Cast technology for light trail riding',
+        'series': 'Factory',
+        'stanchion_diameter': '34mm',
+        'travel': ['100mm', '120mm'],
+        'wheel_size': ['29"'],
+        'axle': 'Kabolt SL 15x110mm (Boost)',
+        'offset_rake': '44mm',
+        'steerer': '1.5" Tapered',
+        'crown': '58mm',
+        'spring_type': 'FLOAT EVOL air spring',
+        'damper': 'GRIP SL',
+        'damper_controls': '3-Position Adjust',
+        'finish': 'Kashima Coat',
+        'rotor_size': '160mm Direct Post Mount, up to 180mm',
+        'max_tire': '2.4"',
+        'air_channels': 'Yes (2024+)',
+        'bleeders': 'Yes (2024+)',
+        'weight': '1,422g (Factory, 29", 120mm)',
+        'intended_use': 'Cross-Country / Trail',
+        'model_years': '2016-2026',
+        'colors': ['Shiny Black', 'Shiny Orange', 'Podium Gold'],
+        'adjustments': {
+            'Low-speed compression': '3 positions (Open/Medium/Firm)',
+            'Low-speed rebound': '17 clicks',
+            'Air pressure': 'Adjustable via Schrader valve'
+        }
+    },
+    '36': {
+        'name': '36',
+        'description': 'All-Mountain / Enduro fork with 36mm stanchions for aggressive trail riding',
+        'series': 'Factory',
+        'stanchion_diameter': '36mm',
+        'travel': ['140mm', '150mm', '160mm'],
+        'wheel_size': ['27.5"', '29"'],
+        'axle': 'Kabolt-X 15x110mm (Boost)',
+        'offset_rake': '37mm, 44mm (27.5") / 44mm (29")',
+        'steerer': '1.5" Tapered',
+        'crown': '58mm',
+        'spring_type': 'FLOAT EVOL air spring',
+        'damper': 'GRIP X2',
+        'damper_controls': 'HSC-LSC-HSR-LSR',
+        'finish': 'Kashima Coat',
+        'rotor_size': '180mm Direct Post Mount, up to 230mm',
+        'max_tire': '2.6"',
+        'air_channels': 'Yes',
+        'bleeders': 'Yes',
+        'floating_axle': 'Yes',
+        'weight': '1,920g - 1,929g (Factory, 160mm)',
+        'intended_use': 'All-Mountain / Enduro',
+        'model_years': '2019-2026',
+        'colors': ['Shiny Black', 'Shiny Orange', 'Podium Gold'],
+        'adjustments': {
+            'High-speed compression': '8 clicks',
+            'Low-speed compression': '18 clicks',
+            'High-speed rebound': '8 clicks',
+            'Low-speed rebound': '16 clicks'
+        }
+    },
+    '38': {
+        'name': '38',
+        'description': 'Enduro / Downhill fork for the most demanding terrain',
+        'series': 'Factory',
+        'stanchion_diameter': '38mm',
+        'travel': ['160mm', '170mm', '180mm'],
+        'wheel_size': ['27.5"', '29"'],
+        'axle': 'Kabolt-X 15x110mm (Boost)',
+        'offset_rake': '44mm',
+        'steerer': '1.5" Tapered',
+        'crown': '58mm',
+        'spring_type': 'FLOAT EVOL air spring',
+        'damper': 'GRIP X2',
+        'damper_controls': 'HSC-LSC-HSR-LSR',
+        'finish': 'Kashima Coat',
+        'rotor_size': '180mm Direct Post Mount (2025), 200mm (2026+), up to 230mm',
+        'max_tire': '2.6"',
+        'air_channels': 'Yes',
+        'bleeders': 'Yes',
+        'floating_axle': 'Yes',
+        'weight': '2,194g (2025), 2,360g (2026/27)',
+        'intended_use': 'Enduro / Downhill',
+        'model_years': '2020-2027',
+        'colors': ['Shiny Black', 'Shiny Orange', 'Racing Green LTD'],
+        'adjustments': {
+            'High-speed compression': '8 clicks',
+            'Low-speed compression': '18 clicks',
+            'High-speed rebound': '8 clicks',
+            'Low-speed rebound': '16 clicks'
+        }
+    },
+    '40': {
+        'name': '40',
+        'description': 'Downhill / World Cup Racing fork with dual crown design',
+        'series': 'Factory',
+        'stanchion_diameter': '40mm',
+        'travel': ['190mm', '203mm'],
+        'wheel_size': ['27.5"', '29"'],
+        'axle': '20mm Thru-Axle x 110mm',
+        'offset_rake': '48mm (27.5") / 52mm (29")',
+        'steerer': '1.125" Straight',
+        'crown': 'Triple clamp / Dual crown',
+        'spring_type': 'FLOAT EVOL / FLOAT EVOL GlideCore',
+        'damper': 'GRIP X2',
+        'damper_controls': 'HSC-LSC-HSR-LSR',
+        'finish': 'Kashima Coat',
+        'rotor_size': '203mm Direct Post Mount, up to 230mm',
+        'air_channels': 'Yes',
+        'bleeders': 'Yes',
+        'floating_axle': 'Yes',
+        'weight': '2,745g (27.5", 2025/26), 2,888g (29", 2026/27)',
+        'intended_use': 'Downhill / World Cup Racing',
+        'model_years': '2013-2027',
+        'colors': ['Shiny Black', 'Shiny Orange', 'Podium Gold'],
+        'adjustments': {
+            'High-speed compression': '8 clicks',
+            'Low-speed compression': '18 clicks',
+            'High-speed rebound': '8 clicks',
+            'Low-speed rebound': '16 clicks'
+        }
+    },
+    'ax': {
+        'name': 'AX (Kabolt Axle)',
+        'description': 'AX refers to forks equipped with the Kabolt axle system - Fox\'s lightweight floating thru-axle',
+        'series': 'Factory/Performance',
+        'axle_variants': {
+            'kabolt_sl': {'used_on': '32 SC, 34 SC, 34 SL', 'weight': 'Lightest'},
+            'kabolt': {'used_on': '34, 36, 38', 'weight': 'Standard'},
+            'kabolt_x': {'used_on': '36, 38 (2024+)', 'weight': 'Improved stiffness'},
+            '20ta': {'used_on': '40, 49', 'weight': 'DH specific'}
+        },
+        'features': [
+            'Sleeveless design reducing weight',
+            'Single-sided pinch bolt for easy installation',
+            'Floating design for optimal chassis alignment',
+            '12g less than standard QR axle'
+        ],
+        'intended_use': 'Universal upgrade'
+    },
+    '49': {
+        'name': '49',
+        'description': 'World Cup Downhill Racing fork (Discontinued - replaced by 40)',
+        'series': 'Factory',
+        'stanchion_diameter': '40mm',
+        'travel': ['203mm'],
+        'wheel_size': ['29"'],
+        'axle': '20mm Thru-Axle x 110mm',
+        'offset_rake': '52mm',
+        'steerer': '1.125" Straight',
+        'spring_type': 'FLOAT EVOL air spring',
+        'damper': 'GRIP2 / GRIP X2',
+        'damper_controls': 'HSC-LSC-HSR-LSR',
+        'finish': 'Kashima Coat',
+        'rotor_size': '203mm Direct Post Mount',
+        'weight': '~2,980g',
+        'intended_use': 'World Cup Downhill Racing',
+        'model_years': '2018-2022 (Discontinued)',
+        'colors': ['Shiny Black'],
+        'status': 'Discontinued (replaced by 40)'
+    },
+    'live_valve_34': {
+        'name': 'Live Valve (34)',
+        'description': 'Electronically controlled automatic suspension built on 34 platform',
+        'series': 'Factory',
+        'base_fork': '34',
+        'system_type': 'Electronically controlled automatic suspension',
+        'travel': ['130mm', '140mm'],
+        'wheel_size': ['29"'],
+        'damper': 'GRIP X',
+        'features': {
+            'Sensor reading rate': '400 times per second',
+            'Adjustment rate': '~3ms response',
+            'Terrain detection': 'Accelerometers detect terrain changes',
+            'Battery life': '16-20 hours',
+            'Charge time': '1.5-2 hours via micro-USB'
+        },
+        'system_components': {
+            'Battery': '72g',
+            'Controller + Sensors': '104g',
+            'Fork damper': 'Included in fork',
+            'Total system add': '~144g vs traditional'
+        },
+        'intended_use': 'Trail / All-Mountain with automatic terrain sensing',
+        'model_years': '2018-2026',
+        'finish': 'Kashima Coat',
+        'colors': ['Shiny Black']
+    },
+    'live_valve_36': {
+        'name': 'Live Valve (36)',
+        'description': 'Electronically controlled automatic suspension built on 36 platform',
+        'series': 'Factory',
+        'base_fork': '36',
+        'system_type': 'Electronically controlled automatic suspension',
+        'travel': ['150mm', '160mm'],
+        'wheel_size': ['27.5"', '29"'],
+        'damper': 'GRIP X2',
+        'features': {
+            'Sensor reading rate': '400 times per second',
+            'Adjustment rate': '~3ms response',
+            'Terrain detection': 'Accelerometers detect terrain changes',
+            'Battery life': '16-20 hours',
+            'Charge time': '1.5-2 hours via micro-USB'
+        },
+        'system_components': {
+            'Battery': '72g',
+            'Controller + Sensors': '104g',
+            'Fork damper (36, 160mm)': '249g',
+            'Total system add': '~144g vs traditional'
+        },
+        'intended_use': 'All-Mountain / Enduro with automatic terrain sensing',
+        'model_years': '2018-2026',
+        'finish': 'Kashima Coat',
+        'colors': ['Shiny Black']
+    }
+} %}
+{% set p = parts[model] %}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <a href="/forks" class="inline-flex items-center text-white/60 hover:text-kashima-gold mb-6 transition">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to Forks
+    </a>
+    
+    <div class="mb-8">
+        <div class="flex items-center gap-4 mb-2">
+            <h1 class="text-4xl font-bold text-white">{{ p.name }}</h1>
+            {% if p.series %}
+            <span class="px-3 py-1 bg-kashima-gold/20 text-kashima-gold rounded-full text-sm font-medium">{{ p.series }}</span>
+            {% endif %}
+            {% if p.status %}
+            <span class="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-sm font-medium">{{ p.status }}</span>
+            {% endif %}
+        </div>
+        <p class="text-white/60 text-lg">{{ p.description }}</p>
+    </div>
+    
+    <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-8">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">Specifications</h2>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    {% if p.stanchion_diameter %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Stanchion Diameter</span>
+                        <span class="text-white font-semibold">{{ p.stanchion_diameter }}</span>
+                    </div>
+                    {% endif %}
+                    {% if p.travel %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Travel</span>
+                        <span class="text-white font-semibold">{{ p.travel|join(', ') }}</span>
+                    </div>
+                    {% endif %}
+                    {% if p.wheel_size %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Wheel Size</span>
+                        <span class="text-white font-semibold">{{ p.wheel_size|join(', ') }}</span>
+                    </div>
+                    {% endif %}
+                    {% if p.axle %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Axle</span>
+                        <span class="text-white font-semibold">{{ p.axle }}</span>
+                    </div>
+                    {% endif %}
+                    {% if p.offset_rake %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Offset/Rake</span>
+                        <span class="text-white font-semibold">{{ p.offset_rake }}</span>
+                    </div>
+                    {% endif %}
+                    {% if p.steerer %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Steerer</span>
+                        <span class="text-white font-semibold">{{ p.steerer }}</span>
+                    </div>
+                    {% endif %}
+                    {% if p.spring_type %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Spring Type</span>
+                        <span class="text-white font-semibold">{{ p.spring_type }}</span>
+                    </div>
+                    {% endif %}
+                    {% if p.damper %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Damper</span>
+                        <span class="text-white font-semibold">{{ p.damper }}</span>
+                    </div>
+                    {% endif %}
+                    {% if p.rotor_size %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Rotor Size</span>
+                        <span class="text-white font-semibold">{{ p.rotor_size }}</span>
+                    </div>
+                    {% endif %}
+                    {% if p.weight %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Weight</span>
+                        <span class="text-white font-semibold">{{ p.weight }}</span>
+                    </div>
+                    {% endif %}
+                    {% if p.intended_use %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Intended Use</span>
+                        <span class="text-white font-semibold">{{ p.intended_use }}</span>
+                    </div>
+                    {% endif %}
+                    {% if p.model_years %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Model Years</span>
+                        <span class="text-white font-semibold">{{ p.model_years }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if p.adjustments %}
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">Adjustments</h2>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    {% for key, value in p.adjustments.items() %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">{{ key }}</span>
+                        <span class="text-white font-medium">{{ value }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if p.features %}
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">Features</h2>
+                <ul class="space-y-3">
+                    {% for feature in p.features %}
+                    <li class="flex items-center gap-3 text-white/80">
+                        <div class="w-2 h-2 kashima-gradient rounded-full"></div>
+                        <span>{{ feature }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            
+            {% if p.colors %}
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">Available Colors</h2>
+                <div class="flex flex-wrap gap-3">
+                    {% for color in p.colors %}
+                    <span class="px-4 py-2 bg-white/10 rounded-full text-white/80">{{ color }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="space-y-6">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-4">Photos</h2>
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="bg-white/5 rounded-xl overflow-hidden">
+                        <img src="/static/images/forks/{{ model }}-1.jpg" alt="Photo 1" class="w-full h-96 object-contain" onerror="this.style.display='none'">
+                        <div class="p-8 text-center">
+                            <div class="w-20 h-20 kashima-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-kashima-dark font-bold text-3xl">F</span>
+                            </div>
+                            <p class="text-white/40 text-lg">Photo 1</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 rounded-xl overflow-hidden">
+                        <img src="/static/images/forks/{{ model }}-2.jpg" alt="Photo 2" class="w-full h-96 object-contain" onerror="this.style.display='none'">
+                        <div class="p-8 text-center">
+                            <div class="w-20 h-20 kashima-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-kashima-dark font-bold text-3xl">F</span>
+                            </div>
+                            <p class="text-white/40 text-lg">Photo 2</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 rounded-xl overflow-hidden">
+                        <img src="/static/images/forks/{{ model }}-3.jpg" alt="Photo 3" class="w-full h-96 object-contain" onerror="this.style.display='none'">
+                        <div class="p-8 text-center">
+                            <div class="w-20 h-20 kashima-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-kashima-dark font-bold text-3xl">F</span>
+                            </div>
+                            <p class="text-white/40 text-lg">Photo 3</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

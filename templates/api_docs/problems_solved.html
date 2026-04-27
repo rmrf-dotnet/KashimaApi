@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problems We Solve - Kashima Research API</title>
+    <link rel="icon" type="image/png" href="/static/images/kc.png">
+    <link rel="shortcut icon" type="image/png" href="/static/images/kc.png">
+    <link rel="apple-touch-icon" href="/static/images/kc.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { kashima: { gold: '#D4AF37', goldLight: '#E8C547', black: '#1a1a1a', dark: '#0d0d0d' } }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .kashima-gradient { background: linear-gradient(135deg, #D4AF37 0%, #E8C547 50%, #D4AF37 100%); }
+    </style>
+</head>
+<body class="bg-kashima-dark text-white min-h-screen">
+    <nav class="bg-kashima-black/95 backdrop-blur border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/api_docs" class="flex items-center gap-3">
+                    <div class="w-8 h-8 kashima-gradient rounded-full flex items-center justify-center">
+                        <span class="text-kashima-dark font-bold text-sm">K</span>
+                    </div>
+                    <span class="font-bold">Kashima Research API</span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <a href="/search" class="text-white/60 hover:text-kashima-gold">Search</a>
+                    <a href="/api_docs" class="text-kashima-gold">Docs</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <a href="/api_docs" class="text-white/60 hover:text-kashima-gold mb-6 inline-flex items-center">
+            ← Back to Documentation
+        </a>
+        
+        <h1 class="text-4xl font-bold mb-6">Problems We Solve</h1>
+        
+        <div class="space-y-6">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 kashima-gradient rounded-xl flex items-center justify-center text-kashima-dark font-bold text-xl">1</div>
+                    <h2 class="text-xl font-bold text-white">Information Fragmentation</h2>
+                </div>
+                <p class="text-white/70">
+                    Specs are scattered across Fox's website, dealer portals, and PDF spec sheets. Our API brings everything 
+                    into one searchable database.
+                </p>
+            </div>
+            
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 kashima-gradient rounded-xl flex items-center justify-center text-kashima-dark font-bold text-xl">2</div>
+                    <h2 class="text-xl font-bold text-white">Comparison Difficulty</h2>
+                </div>
+                <p class="text-white/70">
+                    Comparing 32 SC vs 34 SC, or Float DPS vs Float X2 requires manually opening multiple pages. 
+                    Our search and filter make comparison instant.
+                </p>
+            </div>
+            
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 kashima-gradient rounded-xl flex items-center justify-center text-kashima-dark font-bold text-xl">3</div>
+                    <h2 class="text-xl font-bold text-white">Missing Specs</h2>
+                </div>
+                <p class="text-white/70">
+                    Stanchion diameter, offset, rotor limits, and other critical specs are often buried or missing. We document every 
+                    specification that matters for making a decision.
+                </p>
+            </div>
+            
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 kashima-gradient rounded-xl flex items-center justify-center text-kashima-dark font-bold text-xl">4</div>
+                    <h2 class="text-xl font-bold text-white">No Visual Reference</h2>
+                </div>
+                <p class="text-white/70">
+                    Text specs don't show you what a part looks like. We provide photos for every model so you know 
+                    exactly what you're getting.
+                </p>
+            </div>
+            
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 kashima-gradient rounded-xl flex items-center justify-center text-kashima-dark font-bold text-xl">5</div>
+                    <h2 class="text-xl font-bold text-white">Developer Access</h2>
+                </div>
+                <p class="text-white/70">
+                    Building a bike configurator or shop tool? Our free API gives developers programmatic access 
+                    to all specs - no scraping required.
+                </p>
+            </div>
+        </div>
+        
+        <div class="mt-12 flex items-center justify-between">
+            <a href="/api_docs/why_exists" class="text-white/60 hover:text-kashima-gold">
+                ← Why This API Exists
+            </a>
+            <a href="/api_docs/use_cases" class="px-6 py-3 kashima-gradient text-kashima-dark font-semibold rounded-xl">
+                Next: Use Cases →
+            </a>
+        </div>
+    </div>
+</body>
+</html>

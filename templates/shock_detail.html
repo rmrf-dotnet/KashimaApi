@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+{% block title %}{{ model|upper }} Shock - Kashima Research API{% endblock %}
+
+{% block content %}
+{% set shocks = {
+    'float_dps': {
+        'name': 'Float DPS Factory',
+        'description': 'Cross Country / Trail rear shock with lightweight air spring',
+        'series': 'Factory',
+        'spring_type': 'Air (EVOL positive spring)',
+        'air_spring_options': ['EVOL LV (Large Volume)', 'EVOL SV (Small Volume)', 'Remote compatible'],
+        'eye_to_eye_imperial': ['6.5" x 1.5"', '7.25" x 1.75"', '7.5" x 2"', '7.875" x 2"', '7.875" x 2.25"'],
+        'eye_to_eye_metric': ['190x45', '210x50', '210x52.5', '210x55', '230x60', '230x65'],
+        'trunnion_sizes': ['185x52.5', '185x55', '205x60', '205x62.5'],
+        'stroke_range': '38mm - 65mm (1.5" - 2.25")',
+        'damper_controls': '3-Position Lever, 2-Position Remote, or No Lever',
+        'external_adjustments': {'Rebound Damping': 'Available'},
+        'finish': 'Kashima Coat (upper tube/body)',
+        'weight': '221g (6.5x1.5", without hardware)',
+        'shaft_diameter': '9mm',
+        'intended_use': 'Cross Country / Trail',
+        'model_years': 'Current',
+        'max_air_pressure': '350 psi'
+    },
+    'float_dpx2': {
+        'name': 'Float DPX2 Factory',
+        'description': 'Trail / Enduro rear shock with improved small bump sensitivity',
+        'series': 'Factory',
+        'spring_type': 'Air (EVOL positive spring)',
+        'air_spring_options': ['EVOL LV (Large Volume)'],
+        'eye_to_eye_imperial': ['7.25" x 1.75"', '7.5" x 2"', '7.875" x 2"', '7.875" x 2.25"', '8.5" x 2.5"'],
+        'eye_to_eye_metric': ['185x50', '185x52.5', '185x55', '205x62.5', '205x65', '210x50', '210x52.5', '210x55', '230x60', '230x65'],
+        'trunnion_sizes': ['185x50', '185x52.5', '185x55', '205x62.5', '205x65'],
+        'stroke_range': '44mm - 65mm (1.75" - 2.5")',
+        'damper_controls': '3-Position Lever, 2-Position Remote',
+        'external_adjustments': {'Rebound Damping': 'Available', 'Low-Speed Compression': 'Available'},
+        'finish': 'Kashima Coat (air sleeve and body)',
+        'weight': '398g (7.5x2.0" typical)',
+        'shaft_diameter': '12.7mm (1/2")',
+        'damper_architecture': 'Recirculating oil damper',
+        'intended_use': 'Trail / Enduro',
+        'model_years': '2018-2024',
+        'max_air_pressure': '350 psi'
+    },
+    'float_x': {
+        'name': 'Float X Factory',
+        'description': 'All-Mountain / Enduro rear shock with piggyback reservoir',
+        'series': 'Factory',
+        'spring_type': 'Air (EVOL LV positive spring)',
+        'reservoir': 'Piggyback reservoir',
+        'eye_to_eye_imperial': ['7.875" x 2.0"', '7.875" x 2.25"', '8.5" x 2.5"', '9.5" x 3.0"', '10.5" x 3.5"'],
+        'eye_to_eye_metric': ['190x45', '210x50', '210x52.5', '210x55', '230x57.5', '230x60', '230x62.5', '230x65'],
+        'trunnion_sizes': ['185x52.5', '185x55', '205x60', '205x62.5'],
+        'stroke_range': '45mm - 76mm (1.75" - 3.0")',
+        'damper_controls': '2-Position Lever (Open/Firm)',
+        'external_adjustments': {'Low-speed compression': '12 clicks', 'Low-speed rebound': '16 clicks', 'High-speed compression': 'Available', 'High-speed rebound': 'Available'},
+        'finish': 'Kashima Coat (body and air sleeve)',
+        'shaft_diameter': '12.7mm (1/2")',
+        'features': ['MCU bottom-out bumper', 'Hydraulic top-out', 'Numbered LSC adjuster'],
+        'intended_use': 'All-Mountain / Enduro',
+        'model_years': '2022-2025',
+        'adjustability': '4-way (HS/LS compression, HS/LS rebound)'
+    },
+    'float_x2': {
+        'name': 'Float X2 Factory',
+        'description': 'Enduro / Downhill rear shock with monotube pressure balanced design',
+        'series': 'Factory',
+        'spring_type': 'Air',
+        'architecture': 'Monotube (Pressure Balanced)',
+        'reservoir': 'Piggyback',
+        'eye_to_eye_imperial': ['7.875" x 2.0"', '8.5" x 2.5"', '9.5" x 3.0"', '10.5" x 3.5"'],
+        'eye_to_eye_metric': ['210x50', '210x52.5', '210x55', '230x57.5', '230x60', '230x62.5', '230x65'],
+        'trunnion_sizes': ['185x50', '185x55', '205x55', '205x60', '205x65', '225x75'],
+        'stroke_range': '50mm - 89mm (2.0" - 3.5")',
+        'damper_controls': '2-Position Lever (Open/Firm)',
+        'external_adjustments': {'High-speed compression': 'Available', 'Low-speed compression': 'Available', 'High-speed rebound': '8 clicks (VVC)', 'Low-speed rebound': '16 clicks'},
+        'finish': 'Kashima Coat',
+        'weight': '708g (210x55mm with 2-pos lever)',
+        'shaft_diameter': '12.7mm (1/2")',
+        'features': ['VVC (Variable Valve Control)', 'MCU bottom-out bumper'],
+        'intended_use': 'Enduro / Downhill',
+        'model_years': '2021-2026',
+        'adjustability': '4-way',
+        'max_air_pressure': '300 psi'
+    },
+    'dhx': {
+        'name': 'DHX Factory',
+        'description': 'Enduro / Downhill coil shock with maximum tunability',
+        'series': 'Factory',
+        'spring_type': 'Coil',
+        'reservoir': 'Piggyback',
+        'eye_to_eye_imperial': ['7.875" x 2.0"', '7.875" x 2.25"', '8.5" x 2.5"', '8.75" x 2.75"', '9.5" x 3.0"', '10.5" x 3.5"'],
+        'eye_to_eye_metric': ['190x45', '210x50', '210x52.5', '210x55', '230x57.5', '230x60', '230x62.5', '230x65', '250x75'],
+        'trunnion_sizes': ['185x50', '185x52.5', '185x55', '205x57.5', '205x60', '205x62.5', '205x65', '225x70'],
+        'stroke_range': '45mm - 89mm (1.75" - 3.5")',
+        'damper_controls': '2-Position Lever (Open/Firm), HSC/LSC/HSR/LSR',
+        'external_adjustments': {'Coil preload': 'Available', 'High-speed compression': 'Available', 'Low-speed compression': 'Available', 'High-speed rebound': 'Available', 'Low-speed rebound': 'Available'},
+        'finish': 'Hard Chrome (upper tube)',
+        'shaft_diameter': '12.7mm (1/2")',
+        'features': ['Full diameter spring retainer', 'Scuff guard', 'VVC high-speed rebound'],
+        'spring_compatibility': 'FOX SLS Coil Springs',
+        'intended_use': 'Enduro / Downhill',
+        'model_years': '2020-2024',
+        'adjustability': '4-way',
+        'recommended_sag': '~30% of travel'
+    },
+    'dhx2': {
+        'name': 'DHX2 Factory',
+        'description': 'Enduro / Downhill coil shock with improved frame fit',
+        'series': 'Factory',
+        'spring_type': 'Coil',
+        'architecture': 'Monotube',
+        'reservoir': 'Reduced length for better frame fit',
+        'eye_to_eye_imperial': ['7.875" x 2.0"', '8.5" x 2.5"', '9.5" x 3.0"', '10.5" x 3.5"'],
+        'eye_to_eye_metric': ['210x50', '210x55', '230x57.5', '230x60', '230x62.5', '230x65', '250x75'],
+        'trunnion_sizes': ['185x50', '185x55', '205x60', '205x65', '225x75'],
+        'stroke_range': '50mm - 89mm (2.0" - 3.5")',
+        'damper_controls': '2-Position Lever (Open/Firm)',
+        'external_adjustments': {'Coil preload': 'Detents available', 'High-speed compression': '8 clicks (VVC)', 'Low-speed compression': '16 clicks', 'High-speed rebound': '8 clicks (VVC)', 'Low-speed rebound': '16 clicks'},
+        'finish': 'Hard Chrome / Kashima',
+        'weight': '568g (210x55mm without spring)',
+        'shaft_diameter': '12.7mm (1/2")',
+        'features': ['Spring preload collar with detents', 'VVC (Variable Valve Control)', 'MCU bumper'],
+        'spring_compatibility': 'FOX SLS Coil Springs',
+        'intended_use': 'Enduro / Downhill',
+        'model_years': '2022-2026',
+        'adjustability': '4-way independent',
+        'recommended_sag': '~30% of travel',
+        'max_spring_rate': '500 lbs/in'
+    }
+} %}
+{% set s = shocks[model] %}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <a href="/shocks" class="inline-flex items-center text-white/60 hover:text-kashima-gold mb-6 transition">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to Shocks
+    </a>
+    
+    <div class="mb-8">
+        <div class="flex items-center gap-4 mb-2">
+            <h1 class="text-4xl font-bold text-white">{{ s.name }}</h1>
+            <span class="px-3 py-1 bg-kashima-gold/20 text-kashima-gold rounded-full text-sm font-medium">{{ s.series }}</span>
+        </div>
+        <p class="text-white/60 text-lg">{{ s.description }}</p>
+    </div>
+    
+    <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-8">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">Specifications</h2>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    {% if s.spring_type %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Spring Type</span>
+                        <span class="text-white font-semibold">{{ s.spring_type }}</span>
+                    </div>
+                    {% endif %}
+                    {% if s.stroke_range %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Stroke Range</span>
+                        <span class="text-white font-semibold">{{ s.stroke_range }}</span>
+                    </div>
+                    {% endif %}
+                    {% if s.eye_to_eye_imperial %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Eye-to-Eye (Imperial)</span>
+                        <span class="text-white font-semibold text-sm">{{ s.eye_to_eye_imperial|join(', ') }}</span>
+                    </div>
+                    {% endif %}
+                    {% if s.eye_to_eye_metric %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Eye-to-Eye (Metric)</span>
+                        <span class="text-white font-semibold text-sm">{{ s.eye_to_eye_metric|join(', ') }}</span>
+                    </div>
+                    {% endif %}
+                    {% if s.trunnion_sizes %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Trunnion Sizes</span>
+                        <span class="text-white font-semibold text-sm">{{ s.trunnion_sizes|join(', ') }}</span>
+                    </div>
+                    {% endif %}
+                    {% if s.damper_controls %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Damper Controls</span>
+                        <span class="text-white font-semibold">{{ s.damper_controls }}</span>
+                    </div>
+                    {% endif %}
+                    {% if s.finish %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Finish</span>
+                        <span class="text-white font-semibold">{{ s.finish }}</span>
+                    </div>
+                    {% endif %}
+                    {% if s.shaft_diameter %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Shaft Diameter</span>
+                        <span class="text-white font-semibold">{{ s.shaft_diameter }}</span>
+                    </div>
+                    {% endif %}
+                    {% if s.weight %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Weight</span>
+                        <span class="text-white font-semibold">{{ s.weight }}</span>
+                    </div>
+                    {% endif %}
+                    {% if s.intended_use %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Intended Use</span>
+                        <span class="text-white font-semibold">{{ s.intended_use }}</span>
+                    </div>
+                    {% endif %}
+                    {% if s.model_years %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Model Years</span>
+                        <span class="text-white font-semibold">{{ s.model_years }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if s.external_adjustments %}
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">External Adjustments</h2>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    {% for key, value in s.external_adjustments.items() %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">{{ key }}</span>
+                        <span class="text-white font-medium">{{ value }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if s.features %}
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">Features</h2>
+                <ul class="space-y-3">
+                    {% for feature in s.features %}
+                    <li class="flex items-center gap-3 text-white/80">
+                        <div class="w-2 h-2 kashima-gradient rounded-full"></div>
+                        <span>{{ feature }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="space-y-6">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-4">Photos</h2>
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="bg-white/5 rounded-xl overflow-hidden">
+                        <img src="/static/images/shocks/{{ model }}-1.jpg" alt="Photo 1" class="w-full h-96 object-contain" onerror="this.style.display='none'">
+                        <div class="p-8 text-center">
+                            <div class="w-20 h-20 kashima-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-kashima-dark font-bold text-3xl">F</span>
+                            </div>
+                            <p class="text-white/40 text-lg">Photo 1</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 rounded-xl overflow-hidden">
+                        <img src="/static/images/shocks/{{ model }}-2.jpg" alt="Photo 2" class="w-full h-96 object-contain" onerror="this.style.display='none'">
+                        <div class="p-8 text-center">
+                            <div class="w-20 h-20 kashima-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-kashima-dark font-bold text-3xl">F</span>
+                            </div>
+                            <p class="text-white/40 text-lg">Photo 2</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 rounded-xl overflow-hidden">
+                        <img src="/static/images/shocks/{{ model }}-3.jpg" alt="Photo 3" class="w-full h-96 object-contain" onerror="this.style.display='none'">
+                        <div class="p-8 text-center">
+                            <div class="w-20 h-20 kashima-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-kashima-dark font-bold text-3xl">F</span>
+                            </div>
+                            <p class="text-white/40 text-lg">Photo 3</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

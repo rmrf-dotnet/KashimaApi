@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rate Limits - Kashima Research API</title>
+    <link rel="icon" type="image/png" href="/static/images/kc.png">
+    <link rel="shortcut icon" type="image/png" href="/static/images/kc.png">
+    <link rel="apple-touch-icon" href="/static/images/kc.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>.kashima-gradient{background:linear-gradient(135deg,#D4AF37,#E8C547,#D4AF37)}</style>
+</head>
+<body class="bg-[#0d0d0d] text-white min-h-screen">
+    <nav class="bg-[#1a1a1a]/95 border-b border-white/10 p-4 sticky top-0">
+        <div class="max-w-7xl mx-auto flex justify-between">
+            <a href="/api_docs" class="flex items-center gap-2"><div class="w-8 h-8 kashima-gradient rounded-full"><span class="text-[#1a1a1a] font-bold text-sm">K</span></div><span class="font-bold">Kashima Research API</span></a>
+            <a href="/search" class="text-white/60 hover:text-kashima-gold">Search</a>
+        </div>
+    </nav>
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <a href="/api_docs" class="text-white/60 hover:text-kashima-gold">← Back to Documentation</a>
+        <h1 class="text-4xl font-bold mb-6">Rate Limits</h1>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6">
+            <p class="text-white/70 text-lg">Rate limits prevent any one user from overwhelming the service. Here's what you need to know.</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Free Tier Limits</h2>
+            <ul class="text-white/70 space-y-2">
+                <li>100 requests per day</li>
+                <li>10 requests per minute</li>
+            </ul>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6">
+            <h2 class="text-2xl font-bold mb-4">What Happens If You Exceed</h2>
+            <p class="text-white/70 mb-4">You'll get a 429 error. Wait 60 seconds and your limit resets.</p>
+            <div class="bg-[#0d0d0d] rounded-lg p-4 font-mono text-sm overflow-x-auto">
+                {"success": false, "error": "Rate limit exceeded", "retry_after": 60}
+            </div>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Best Practices</h2>
+            <ul class="text-white/70 space-y-2">
+                <li>• Cache responses on your end</li>
+                <li>• Only request data you need</li>
+                <li>• Add delays between requests</li>
+                <li>• Consider upgrading for higher limits</li>
+            </ul>
+        </div>
+
+        <div class="mt-12 flex justify-between">
+            <a href="/api_docs/error_handling" class="text-white/60 hover:text-kashima-gold">← Error Handling</a>
+            <a href="/api_docs/pricing" class="px-6 py-3 kashima-gradient text-[#1a1a1a] font-semibold rounded-xl">Next: Pricing →</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who Is This For - Kashima Research API</title>
+    <link rel="icon" type="image/png" href="/static/images/kc.png">
+    <link rel="shortcut icon" type="image/png" href="/static/images/kc.png">
+    <link rel="apple-touch-icon" href="/static/images/kc.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { kashima: { gold: '#D4AF37', goldLight: '#E8C547', black: '#1a1a1a', dark: '#0d0d0d' } } } } }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', system-ui, sans-serif; } .kashima-gradient { background: linear-gradient(135deg, #D4AF37 0%, #E8C547 50%, #D4AF37 100%); }</style>
+</head>
+<body class="bg-kashima-dark text-white min-h-screen">
+    <nav class="bg-kashima-black/95 backdrop-blur border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/api_docs" class="flex items-center gap-3">
+                <div class="w-8 h-8 kashima-gradient rounded-full flex items-center justify-center"><span class="text-kashima-dark font-bold text-sm">K</span></div>
+                <span class="font-bold">Kashima Research API</span>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="/search" class="text-white/60 hover:text-kashima-gold">Search</a>
+                <a href="/api_docs" class="text-kashima-gold">Docs</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <a href="/api_docs" class="text-white/60 hover:text-kashima-gold mb-6 inline-flex items-center">← Back to Documentation</a>
+        <h1 class="text-4xl font-bold mb-6">Who Is This For</h1>
+        
+        <div class="space-y-6">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <h2 class="text-2xl font-bold text-white mb-4">Mountain Bikers</h2>
+                <p class="text-white/70">Riders researching upgrade parts or building new bikes. Use our web search to find specs without writing code.</p>
+            </div>
+            
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <h2 class="text-2xl font-bold text-white mb-4">Bike Shops</h2>
+                <p class="text-white/70">Retailers and e-commerce sites needing product specs for display on websites.</p>
+            </div>
+            
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <h2 class="text-2xl font-bold text-white mb-4">Mechanics & Rebuilders</h2>
+                <p class="text-white/70">LBS technicians who need to confirm specs before ordering parts for customers.</p>
+            </div>
+            
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <h2 class="text-2xl font-bold text-white mb-4">Custom Frame Builders</h2>
+                <p class="text-white/70">Frame builders matching suspension to geometry. Get exact measurements for fork offset, shock sizing.</p>
+            </div>
+            
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <h2 class="text-2xl font-bold text-white mb-4">App Developers</h2>
+                <p class="text-white/70">Developers building tools, configurators, or content management systems with Fox parts data.</p>
+            </div>
+            
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <h2 class="text-2xl font-bold text-white mb-4">Content Creators</h2>
+                <p class="text-white/70">Writers, YouTubers, and reviewers who need accurate specs for comparison content.</p>
+            </div>
+        </div>
+        
+        <div class="mt-12 flex justify-between">
+            <a href="/api_docs/benefits" class="text-white/60 hover:text-kashima-gold">← Benefits</a>
+            <a href="/api_docs/comparison" class="px-6 py-3 kashima-gradient text-kashima-dark font-semibold rounded-xl">Next: Compare Parts →</a>
+        </div>
+    </div>
+</body>
+</html>

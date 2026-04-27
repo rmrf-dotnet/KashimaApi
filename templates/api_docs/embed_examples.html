@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Embed Examples - Kashima Research API</title>
+    <link rel="icon" type="image/png" href="/static/images/kc.png">
+    <link rel="shortcut icon" type="image/png" href="/static/images/kc.png">
+    <link rel="apple-touch-icon" href="/static/images/kc.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>.kashima-gradient{background:linear-gradient(135deg,#D4AF37,#E8C547,#D4AF37)}</style>
+</head>
+<body class="bg-[#0d0d0d] text-white min-h-screen">
+    <nav class="bg-[#1a1a1a]/95 border-b border-white/10 p-4 sticky top-0">
+        <div class="max-w-7xl mx-auto flex justify-between">
+            <a href="/api_docs" class="flex items-center gap-2"><div class="w-8 h-8 kashima-gradient rounded-full"><span class="text-[#1a1a1a] font-bold text-sm">K</span></div><span class="font-bold">Kashima Research API</span></a>
+            <a href="/search" class="text-white/60 hover:text-kashima-gold">Search</a>
+        </div>
+    </nav>
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <a href="/api_docs" class="text-white/60 hover:text-kashima-gold">← Back to Documentation</a>
+        <h1 class="text-4xl font-bold mb-6">Embed Examples</h1>
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6">
+            <p class="text-white/70 text-lg">Copy and paste ready-to-use code snippets for common use cases.</p>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Product Comparison Table</h2>
+            <div class="bg-[#0d0d0d] rounded-lg p-4 font-mono text-sm overflow-x-auto">
+                &lt;div id="kashima-compare"&gt;&lt;/div&gt;<br>
+                &lt;script src="https://api.kashima.research/widget/compare.js"&gt;&lt;/script&gt;
+            </div>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Fork Selector</h2>
+            <div class="bg-[#0d0d0d] rounded-lg p-4 font-mono text-sm overflow-x-auto">
+                &lt;div data-kashima="fork-selector" api key="YOUR_KEY"&gt;&lt;/div&gt;<br>
+                &lt;script src="https://api.kashima.research/widget.js"&gt;&lt;/script&gt;
+            </div>
+        </div>
+
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-8 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Search Results</h2>
+            <div class="bg-[#0d0d0d] rounded-lg p-4 font-mono text-sm overflow-x-auto">
+                &lt;div id="kashima-results" data-query="Fox 36"&gt;&lt;/div&gt;<br>
+                &lt;script src="https://api.kashima.research/widget.js"&gt;&lt;/script&gt;
+            </div>
+        </div>
+
+        <div class="mt-12 flex justify-between">
+            <a href="/api_docs/integration_guide" class="text-white/60 hover:text-kashima-gold">← Integration</a>
+            <a href="/api_docs/support" class="px-6 py-3 kashima-gradient text-[#1a1a1a] font-semibold rounded-xl">Next: Support →</a>
+        </div>
+    </div>
+</body>
+</html>

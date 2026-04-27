@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compare Parts - Kashima Research API</title>
+    <link rel="icon" type="image/png" href="/static/images/kc.png">
+    <link rel="shortcut icon" type="image/png" href="/static/images/kc.png">
+    <link rel="apple-touch-icon" href="/static/images/kc.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { kashima: { gold: '#D4AF37' } } } } } }</script>
+    <style>.kashima-gradient{background:linear-gradient(135deg,#D4AF37,#E8C547,#D4AF37)}</style>
+</head>
+<body class="bg-[#0d0d0d] text-white min-h-screen">
+    <nav class="bg-[#1a1a1a]/95 border-b border-white/10 sticky top-0 p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="/api_docs" class="flex items-center gap-2">
+                <div class="w-8 h-8 kashima-gradient rounded-full flex items-center justify-center"><span class="text-[#1a1a1a] font-bold text-sm">K</span></div>
+                <span class="font-bold">Kashima Research API</span>
+            </a>
+            <a href="/search" class="text-white/60 hover:text-kashima-gold">Search</a>
+        </div>
+    </nav>
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <a href="/api_docs" class="text-white/60 hover:text-kashima-gold">← Back</a>
+        <h1 class="text-4xl font-bold mb-6">Compare Parts</h1>
+        <p class="text-white/70 mb-8">Use our search to compare any Fox parts side by side.</p>
+        <a href="/search" class="inline-block px-8 py-4 kashima-gradient text-[#1a1a1a] font-semibold rounded-xl">Go to Search</a>
+        <div class="mt-12">
+            <h2 class="text-2xl font-bold mb-4">Quick Comparisons</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <a href="/search?category=forks&q=36" class="p-6 bg-white/5 border border-white/10 rounded-xl hover:border-kashima-gold">Fox 36 vs 38 - Which Enduro Fork?</a>
+                <a href="/search?category=shocks&q=float" class="p-6 bg-white/5 border border-white/10 rounded-xl hover:border-kashima-gold">Float DPS vs Float X2</a>
+                <a href="/search?category=forks&q=34" class="p-6 bg-white/5 border border-white/10 rounded-xl hover:border-kashima-gold">34 SC vs 34 Standard</a>
+                <a href="/search?category=droppers&q=transfer" class="p-6 bg-white/5 border border-white/10 rounded-xl hover:border-kashima-gold">Transfer vs Transfer SL</a>
+            </div>
+        </div>
+        <div class="mt-12 flex justify-between">
+            <a href="/api_docs/who_for" class="text-white/60 hover:text-kashima-gold">← Who Is This For</a>
+            <a href="/api_docs/buying_guide" class="px-6 py-3 kashima-gradient text-[#1a1a1a] font-semibold rounded-xl">Next: Buying Guide →</a>
+        </div>
+    </div>
+</body>
+</html>

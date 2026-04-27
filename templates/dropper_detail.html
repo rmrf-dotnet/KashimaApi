@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+
+{% block title %}{{ model|upper }} Dropper - Kashima Research API{% endblock %}
+
+{% block content %}
+{% set droppers = {
+    'transfer': {
+        'name': 'Transfer Factory',
+        'description': 'Trail, AM, Enduro dropper post with infinite adjustable travel',
+        'series': 'Factory',
+        'travel_options': ['120mm', '150mm', '180mm', '210mm', '240mm'],
+        'travel_adjustment': 'Adjustable down 25mm in 5mm increments',
+        'diameter_sizes': ['30.9mm', '31.6mm', '34.9mm'],
+        'cable_routing': 'Internal only',
+        'lever_type': 'Cable remote (Matchmaker, I-spec EV compatible)',
+        'finish': 'Kashima Coat on upper stanchion, Anodized Black on lower',
+        'actuation': 'Cable Remote with nitrogen gas spring',
+        'weight_30_9mm': {'120mm': '475g', '150mm': '528g', '180mm': '585g', '210mm': '636g'},
+        'weight_31_6mm': {'120mm': '492g', '150mm': '549g', '180mm': '608g', '210mm': '667g', '240mm': '730g'},
+        'weight_34_9mm': {'120mm': '555g', '150mm': '621g', '180mm': '691g', '210mm': '759g', '240mm': '826g'},
+        'minimum_insertion': '~80mm (varies by travel/diameter)',
+        'maximum_insertion': '~295-335mm (varies by travel/diameter)',
+        'total_length': '346-611mm (varies by travel/diameter)',
+        'bushings': 'Metal-backed EKONOL (PTFE/Teflon)',
+        'service_interval': '300 hours',
+        'intended_use': 'Trail, AM, Enduro',
+        'model_years': '2020-2025'
+    },
+    'transfer_sl': {
+        'name': 'Transfer SL Factory',
+        'description': 'XC, Gravel, Light Trail dropper post with lightweight 2-position design',
+        'series': 'Factory',
+        'travel_options': ['50mm', '70mm', '75mm', '100mm', '125mm', '150mm'],
+        'travel_style': '2-position (fully up or fully down)',
+        'travel_adjustment': 'Indexed (no incremental adjustment)',
+        'diameter_sizes': ['27.2mm', '30.9mm', '31.6mm'],
+        'cable_routing': 'Internal only',
+        'lever_type': 'Cable remote - lightweight 1x, classic 2x, or drop bar compatible',
+        'finish': 'Kashima Coat on upper stanchion, Anodized Black on lower',
+        'actuation': 'Mechanical 2-position (spring-based, no hydraulics)',
+        'weight_27_2mm': {'50mm': '327g', '70mm': '338g'},
+        'weight_30_9mm': {'75mm': '342g', '100mm': '347g'},
+        'weight_31_6mm': {'75mm': '352g', '100mm': '359g', '125mm': '432g', '150mm': '437g'},
+        'minimum_insertion': '80mm (all sizes)',
+        'maximum_insertion': '248mm (27.2mm), 225mm (30.9/31.6mm), 275mm (31.6mm XL)',
+        'total_length': '350mm (27.2x50) to 480mm (31.6x150)',
+        'stack_height': '53mm',
+        'hardware': 'Titanium bolts (Factory - saves 10g)',
+        'intended_use': 'XC, Gravel, Light Trail',
+        'model_years': '2022-2025'
+    }
+} %}
+{% set d = droppers[model] %}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <a href="/droppers" class="inline-flex items-center text-white/60 hover:text-kashima-gold mb-6 transition">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to Droppers
+    </a>
+    
+    <div class="mb-8">
+        <div class="flex items-center gap-4 mb-2">
+            <h1 class="text-4xl font-bold text-white">{{ d.name }}</h1>
+            <span class="px-3 py-1 bg-kashima-gold/20 text-kashima-gold rounded-full text-sm font-medium">{{ d.series }}</span>
+        </div>
+        <p class="text-white/60 text-lg">{{ d.description }}</p>
+    </div>
+    
+    <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-8">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">Specifications</h2>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    {% if d.travel_options %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Travel Options</span>
+                        <span class="text-white font-semibold">{{ d.travel_options|join(', ') }}</span>
+                    </div>
+                    {% endif %}
+                    {% if d.travel_adjustment %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Travel Adjustment</span>
+                        <span class="text-white font-semibold">{{ d.travel_adjustment }}</span>
+                    </div>
+                    {% endif %}
+                    {% if d.diameter_sizes %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Diameter Sizes</span>
+                        <span class="text-white font-semibold">{{ d.diameter_sizes|join(', ') }}</span>
+                    </div>
+                    {% endif %}
+                    {% if d.cable_routing %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Cable Routing</span>
+                        <span class="text-white font-semibold">{{ d.cable_routing }}</span>
+                    </div>
+                    {% endif %}
+                    {% if d.lever_type %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Lever Type</span>
+                        <span class="text-white font-semibold text-sm">{{ d.lever_type }}</span>
+                    </div>
+                    {% endif %}
+                    {% if d.finish %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Finish</span>
+                        <span class="text-white font-semibold">{{ d.finish }}</span>
+                    </div>
+                    {% endif %}
+                    {% if d.actuation %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Actuation</span>
+                        <span class="text-white font-semibold">{{ d.actuation }}</span>
+                    </div>
+                    {% endif %}
+                    {% if d.minimum_insertion %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Minimum Insertion</span>
+                        <span class="text-white font-semibold">{{ d.minimum_insertion }}</span>
+                    </div>
+                    {% endif %}
+                    {% if d.maximum_insertion %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Maximum Insertion</span>
+                        <span class="text-white font-semibold">{{ d.maximum_insertion }}</span>
+                    </div>
+                    {% endif %}
+                    {% if d.intended_use %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Intended Use</span>
+                        <span class="text-white font-semibold">{{ d.intended_use }}</span>
+                    </div>
+                    {% endif %}
+                    {% if d.model_years %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Model Years</span>
+                        <span class="text-white font-semibold">{{ d.model_years }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if d.weight_30_9mm or d.weight_31_6mm %}
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">Weights</h2>
+                <div class="space-y-4">
+                    {% if d.weight_30_9mm %}
+                    <div>
+                        <span class="text-white/60 text-sm block mb-2">30.9mm</span>
+                        <div class="flex flex-wrap gap-2">
+                            {% for travel, weight in d.weight_30_9mm.items() %}
+                            <span class="px-3 py-1 bg-white/5 rounded text-white/80 text-sm">{{ travel }}: {{ weight }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if d.weight_31_6mm %}
+                    <div>
+                        <span class="text-white/60 text-sm block mb-2">31.6mm</span>
+                        <div class="flex flex-wrap gap-2">
+                            {% for travel, weight in d.weight_31_6mm.items() %}
+                            <span class="px-3 py-1 bg-white/5 rounded text-white/80 text-sm">{{ travel }}: {{ weight }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if d.weight_34_9mm %}
+                    <div>
+                        <span class="text-white/60 text-sm block mb-2">34.9mm</span>
+                        <div class="flex flex-wrap gap-2">
+                            {% for travel, weight in d.weight_34_9mm.items() %}
+                            <span class="px-3 py-1 bg-white/5 rounded text-white/80 text-sm">{{ travel }}: {{ weight }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if d.weight_27_2mm %}
+                    <div>
+                        <span class="text-white/60 text-sm block mb-2">27.2mm</span>
+                        <div class="flex flex-wrap gap-2">
+                            {% for travel, weight in d.weight_27_2mm.items() %}
+                            <span class="px-3 py-1 bg-white/5 rounded text-white/80 text-sm">{{ travel }}: {{ weight }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if d.bushings or d.service_interval %}
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">Maintenance</h2>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    {% if d.bushings %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Bushings</span>
+                        <span class="text-white font-medium">{{ d.bushings }}</span>
+                    </div>
+                    {% endif %}
+                    {% if d.service_interval %}
+                    <div class="p-4 bg-white/5 rounded-xl">
+                        <span class="text-white/40 text-sm block">Service Interval</span>
+                        <span class="text-white font-medium">{{ d.service_interval }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="space-y-6">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-4">Photos</h2>
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="bg-white/5 rounded-xl overflow-hidden">
+                        <img src="/static/images/droppers/{{ model }}-1.jpg" alt="Photo 1" class="w-full h-96 object-contain" onerror="this.style.display='none'">
+                        <div class="p-8 text-center">
+                            <div class="w-20 h-20 kashima-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-kashima-dark font-bold text-3xl">F</span>
+                            </div>
+                            <p class="text-white/40 text-lg">Photo 1</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 rounded-xl overflow-hidden">
+                        <img src="/static/images/droppers/{{ model }}-2.jpg" alt="Photo 2" class="w-full h-96 object-contain" onerror="this.style.display='none'">
+                        <div class="p-8 text-center">
+                            <div class="w-20 h-20 kashima-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-kashima-dark font-bold text-3xl">F</span>
+                            </div>
+                            <p class="text-white/40 text-lg">Photo 2</p>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 rounded-xl overflow-hidden">
+                        <img src="/static/images/droppers/{{ model }}-3.jpg" alt="Photo 3" class="w-full h-96 object-contain" onerror="this.style.display='none'">
+                        <div class="p-8 text-center">
+                            <div class="w-20 h-20 kashima-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-kashima-dark font-bold text-3xl">F</span>
+                            </div>
+                            <p class="text-white/40 text-lg">Photo 3</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

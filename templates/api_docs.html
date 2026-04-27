@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}API Documentation - Kashima Research API{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-12">
+        <h1 class="text-4xl font-bold text-white mb-4">API Documentation</h1>
+        <p class="text-white/60 text-lg">Integrate Kashima Research data into your own applications.</p>
+    </div>
+    
+    {% if api_key %}
+    <div class="mb-8 p-6 bg-kashima-gold/10 border border-kashima-gold/30 rounded-2xl">
+        <div class="flex items-center justify-between">
+            <div>
+                <span class="text-kashima-gold text-sm font-medium block mb-1">Your API Key</span>
+                <code class="text-white font-mono text-lg">{{ api_key }}</code>
+            </div>
+            <a href="/regenerate-api-key" class="px-4 py-2 bg-white/10 text-white/80 rounded-lg hover:bg-white/20 transition text-sm">
+                Regenerate
+            </a>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-8">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">Getting Started</h2>
+                <p class="text-white/60 mb-4">
+                    To use the API, include your API key in the request header or as a query parameter.
+                </p>
+                <div class="bg-kashima-dark rounded-xl p-4 font-mono text-sm">
+                    <p class="text-white/60"># Using header</p>
+                    <p class="text-kashima-gold">curl -H "X-API-Key: YOUR_API_KEY" \</p>
+                    <p class="text-white">  https://kashima-research-api/api/v1/parts</p>
+                    <p class="text-white/60 mt-2"># Using query parameter</p>
+                    <p class="text-kashima-gold">curl "https://kashima-research-api/api/v1/parts?api_key=YOUR_API_KEY"</p>
+                </div>
+            </div>
+            
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">Endpoints</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs font-medium">GET</span>
+                            <code class="text-white font-mono">/api/v1/parts</code>
+                        </div>
+                        <p class="text-white/60 text-sm">Get all parts. Optional query parameter: category=forks|shocks|droppers</p>
+                    </div>
+                    
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs font-medium">GET</span>
+                            <code class="text-white font-mono">/api/v1/parts/&lt;category&gt;/&lt;model&gt;</code>
+                        </div>
+                        <p class="text-white/60 text-sm">Get specific part details. Example: /api/v1/parts/forks/36</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">Response Format</h2>
+                <pre class="bg-kashima-dark rounded-xl p-4 font-mono text-sm text-white overflow-x-auto">{
+  "forks": {
+    "category": "forks",
+    "models": {
+      "36": {
+        "name": "36",
+        "series": "Factory",
+        "stanchion_diameter": "36mm",
+        "travel": ["140mm", "150mm", "160mm"],
+        "wheel_size": ["27.5\"", "29\""],
+        "damper": "GRIP X2",
+        ...
+      }
+    }
+  }
+}</pre>
+            </div>
+            
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-6">Available Models</h2>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div>
+                        <h3 class="text-white/80 font-medium mb-2">Forks</h3>
+                        <ul class="space-y-1 text-white/60 text-sm">
+                            <li>32_sc, 34_sc, 36, 38, 40</li>
+                            <li>ax, 49</li>
+                            <li>live_valve_34, live_valve_36</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-white/80 font-medium mb-2">Shocks</h3>
+                        <ul class="space-y-1 text-white/60 text-sm">
+                            <li>float_dps, float_dpx2</li>
+                            <li>float_x, float_x2</li>
+                            <li>dhx, dhx2</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-white/80 font-medium mb-2">Droppers</h3>
+                        <ul class="space-y-1 text-white/60 text-sm">
+                            <li>transfer, transfer_sl</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="space-y-6">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-4">Embed Example</h2>
+                <p class="text-white/60 text-sm mb-4">
+                    Embed parts data in your website using the API key.
+                </p>
+                <pre class="bg-kashima-dark rounded-xl p-4 font-mono text-xs text-white overflow-x-auto"><!-- Fox 36 Specs -->
+<div id="fox-36-specs">
+  Loading...
+</div>
+
+<script>
+fetch('/api/v1/parts/forks/36?api_key=YOUR_KEY')
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById('fox-36-specs').innerHTML = 
+      `Travel: ${data.travel}<br>
+       Weight: ${data.weight}`;
+  });
+</script></pre>
+            </div>
+            
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-4">Rate Limits</h2>
+                <p class="text-white/60 text-sm">
+                    Free API key: 1000 requests/day. Contact us for higher limits.
+                </p>
+            </div>
+            
+            {% if not api_key %}
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-bold text-white mb-4">Get Started</h2>
+                <p class="text-white/60 text-sm mb-4">
+                    Create a free account to get your API key.
+                </p>
+                <a href="/register" class="block text-center py-3 kashima-gradient text-kashima-dark font-semibold rounded-xl hover:opacity-90 transition">
+                    Get API Key
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

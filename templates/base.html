@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Kashima Research API{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kashima: {
+                            gold: '#D4AF37',
+                            goldLight: '#E8C547',
+                            black: '#1a1a1a',
+                            dark: '#0d0d0d'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="icon" type="image/png" href="/static/images/kc.png">
+    <link rel="shortcut icon" type="image/png" href="/static/images/kc.png">
+    <link rel="apple-touch-icon" href="/static/images/kc.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="/static/css/style.css/" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .hero {
+            background-image: url(/static/images/hero.png);
+            background-repeat: no-repeat;
+            height: 76vh;
+        }
+
+        .kashima-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #E8C547 50%, #D4AF37 100%);
+        }
+
+        .kashima-text {
+            background: linear-gradient(135deg, #D4AF37 0%, #E8C547 50%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #D4AF37;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .kashima-text {
+            font-family: 'Eurostar', sans-serif;
+        }
+
+        .kashima-small {
+            font-family: 'Eurostar', sans-serif !important;
+            /* font-family: 'Bank Gothic', sans-serif; */
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body class="bg-kashima-dark text-white min-h-screen">
+    <nav class="bg-kashima-black/95 backdrop-blur border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-8">
+                    <a href="/" class="flex items-center gap-2">
+                        <div class="w-10 h-10 kashima-gradient rounded-full flex items-center justify-center">
+                            <span class="text-kashima-dark font-bold text-sm">
+                                <img src="/static/images/kc.png" alt="Kashima Logo" class="w-7 h-7">
+                            </span>
+                        </div>
+                        <span class="font-bold text-lg kashima-text">Kashima Research</span>
+                    </a>
+                    <div class="hidden md:flex items-center gap-6">
+                        <a href="/forks" class="nav-link text-white/80 hover:text-kashima-gold transition">Forks</a>
+                        <a href="/shocks" class="nav-link text-white/80 hover:text-kashima-gold transition">Shocks</a>
+                        <a href="/droppers"
+                            class="nav-link text-white/80 hover:text-kashima-gold transition">Droppers</a>
+                        <a href="/api_docs" class="nav-link text-white/80 hover:text-kashima-gold transition">API
+                            Docs</a>
+                        <a href="/search" class="nav-link text-white/80 hover:text-kashima-gold transition">Search</a>
+                        <!-- <a href="/upload_images" class="nav-link text-white/80 hover:text-kashima-gold transition">Images</a> -->
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    {% if session.get('username') %}
+                    <a href="/account" class="text-white/60 hover:text-kashima-gold text-sm transition">Account</a>
+                    <span class="text-white/40">|</span>
+                    <span class="text-kashima-gold text-sm">{{ session.get('username') }}</span>
+                    <a href="/logout" class="text-white/60 hover:text-kashima-gold text-sm transition">Logout</a>
+                    {% else %}
+                    <a href="/login" class="text-white/60 hover:text-kashima-gold text-sm transition">Login</a>
+                    <a href="/register"
+                        class="px-4 py-2 kashima-gradient text-kashima-dark font-medium rounded-lg hover:opacity-90 transition">Sign
+                        Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="max-w-7xl mx-auto px-4 pt-4">
+        {% for category, message in messages %}
+        <div
+            class="mb-4 p-4 rounded-lg {% if category == 'error' %}bg-red-500/20 border border-red-500 text-red-300{% else %}bg-green-500/20 border border-green-500 text-green-300{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+    <footer class="bg-kashima-black border-t border-white/10 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 kashima-gradient rounded-full flex items-center justify-center">
+                        <span class="text-kashima-dark font-bold text-sm">
+                            <img src="/static/images/kc.png" alt="Kashima Logo" class="w-7 h-7">
+                        </span>
+                    </div>
+                    <span class="text-white/60 text-sm kashima-text">Kashima Research API</span>
+                </div>
+                <p class="text-white/40 text-sm kashima-small">It’s cool when you’ve got Fox Racing Shox Factory Series…
+                    but that Kashima Coating hits different.</p>
+                <div class="flex items-center gap-4">
+                    <a href="/api_docs" class="text-white/60 hover:text-kashima-gold text-sm transition">API Docs</a>
+                    <span class="text-white/30 text-sm">|</span>
+                    <span class="text-white/40 text-sm">v1.0.0</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+
+</html>
